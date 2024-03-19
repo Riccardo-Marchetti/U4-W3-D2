@@ -5,28 +5,25 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Entity // QUESTA CLASSE DEVE ESSERE MAPPATA NELLA TABELLA
+@Entity
 @Table (name = "eventi")
 public class Evento {
     @Id
+    @Column (name = "id")
     @GeneratedValue
     private long id;
-
     @Column (name = "titolo")
     private String titolo;
     @Column (name = "dataevento")
     private Date dataEvento;
     @Column (name = "descrizione")
     private String descrizione;
-    @Enumerated(EnumType.STRING)
     @Column (name = "tipoevento")
+    @Enumerated (EnumType.STRING)
     private TipoEvento tipoEvento;
     @Column (name = "numeromassimopartecipanti")
     private long numeroMassimoPartecipanti;
 
-    public Evento() {
-
-    }
 
     public Evento(String titolo, Date dataEvento, String descrizione, TipoEvento tipoEvento, long numeroMassimoPartecipanti) {
         this.titolo = titolo;
@@ -34,6 +31,9 @@ public class Evento {
         this.descrizione = descrizione;
         this.tipoEvento = tipoEvento;
         this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
+    }
+    public Evento(){
+
     }
 
     public long getId() {
@@ -76,7 +76,7 @@ public class Evento {
         return numeroMassimoPartecipanti;
     }
 
-    public void setNumeroMassimoPartecipanti(int numeroMassimoPartecipanti) {
+    public void setNumeroMassimoPartecipanti(long numeroMassimoPartecipanti) {
         this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
     }
 
