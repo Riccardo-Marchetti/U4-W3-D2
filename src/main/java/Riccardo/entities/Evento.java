@@ -3,7 +3,11 @@ package Riccardo.entities;
 import Riccardo.enums.TipoEvento;
 import jakarta.persistence.*;
 
+import javax.annotation.processing.Generated;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table (name = "eventi")
@@ -15,7 +19,7 @@ public class Evento {
     @Column (name = "titolo")
     private String titolo;
     @Column (name = "dataevento")
-    private Date dataEvento;
+    private LocalDate dataEvento;
     @Column (name = "descrizione")
     private String descrizione;
     @Column (name = "tipoevento")
@@ -23,17 +27,42 @@ public class Evento {
     private TipoEvento tipoEvento;
     @Column (name = "numeromassimopartecipanti")
     private long numeroMassimoPartecipanti;
+    // MANYTOONE CON LOCATION
+    @ManyToOne
+    @JoinColumn (name = "Location_id")
+    private Location location;
+    // ONETOMANY CON PARTECIPAZIONE
+    @OneToMany (mappedBy = "evento")
+    private List<Partecipazione> partecipazione = new ArrayList<>();
 
 
-    public Evento(String titolo, Date dataEvento, String descrizione, TipoEvento tipoEvento, long numeroMassimoPartecipanti) {
+    public Evento(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, long numeroMassimoPartecipanti, Location location) {
         this.titolo = titolo;
         this.dataEvento = dataEvento;
         this.descrizione = descrizione;
         this.tipoEvento = tipoEvento;
         this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
+        this.location = location;
     }
     public Evento(){
 
+    }
+
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public List<Partecipazione> getPartecipazione() {
+        return partecipazione;
+    }
+
+    public void setPartecipazione(List<Partecipazione> partecipazione) {
+        this.partecipazione = partecipazione;
     }
 
     public long getId() {
@@ -48,11 +77,11 @@ public class Evento {
         this.titolo = titolo;
     }
 
-    public Date getDataEvento() {
+    public LocalDate getDataEvento() {
         return dataEvento;
     }
 
-    public void setDataEvento(Date dataEvento) {
+    public void setDataEvento(LocalDate dataEvento) {
         this.dataEvento = dataEvento;
     }
 
@@ -89,6 +118,8 @@ public class Evento {
                 ", descrizione='" + descrizione + '\'' +
                 ", tipoEvento=" + tipoEvento +
                 ", numeroMassimoPartecipanti=" + numeroMassimoPartecipanti +
+                ", location=" + location +
+                ", partecipazione=" + partecipazione +
                 '}';
     }
 }
