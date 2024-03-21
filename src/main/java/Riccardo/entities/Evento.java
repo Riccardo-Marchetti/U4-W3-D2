@@ -11,10 +11,15 @@ import java.util.List;
 
 @Entity
 @Table (name = "eventi")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn (name = "evento")
+@NamedQuery(name = "getConcertiInStreaming", query = "SELECT c FROM Concerto c WHERE c.inStreaming = :inStreaming")
+@NamedQuery(name = "getPartiteVinteInCasa", query = "SELECT p FROM PartitaDiCalcio p WHERE p.numeroGolSquadraDiCasa > p.numeroGolSquadraOspite")
+@NamedQuery(name = "getPartiteVinteInTrasferta", query = "SELECT p FROM PartitaDiCalcio p WHERE p.numeroGolSquadraDiCasa < p.numeroGolSquadraOspite")
 public class Evento {
     @Id
     @Column (name = "id")
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
     @Column (name = "titolo")
     private String titolo;

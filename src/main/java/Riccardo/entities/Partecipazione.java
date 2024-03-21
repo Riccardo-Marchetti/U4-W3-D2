@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table (name = "partecipazione")
 public class Partecipazione {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
     @Enumerated(EnumType.STRING)
     private Stato stato;

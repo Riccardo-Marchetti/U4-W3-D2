@@ -11,7 +11,7 @@ import java.util.List;
 @Table (name = "persona")
 public class Persona {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String cognome;
@@ -22,7 +22,8 @@ public class Persona {
     // ONETOMANY CON PARTECIPAZIONE
     @OneToMany (mappedBy = "persona")
     private List<Partecipazione> listaPartecipazioni = new ArrayList<>();
-
+    @ManyToMany (mappedBy = "atleti")
+    private List<GaraDiAtletica> garaDiAtletica = new ArrayList<>();
     public Persona(String nome, String cognome, String email, LocalDate dataDiNascita, Sesso sesso) {
         this.nome = nome;
         this.cognome = cognome;
@@ -30,9 +31,9 @@ public class Persona {
         this.dataDiNascita = dataDiNascita;
         this.sesso = sesso;
     }
-//    public Persona(){
-//
-//    }
+    public Persona(){
+
+    }
 
     public long getId() {
         return id;
@@ -84,6 +85,14 @@ public class Persona {
 
     public void setListaPartecipazioni(List<Partecipazione> listaPartecipazioni) {
         this.listaPartecipazioni = listaPartecipazioni;
+    }
+
+    public List<GaraDiAtletica> getGaraDiAtletica() {
+        return garaDiAtletica;
+    }
+
+    public void setGaraDiAtletica(List<GaraDiAtletica> garaDiAtletica) {
+        this.garaDiAtletica = garaDiAtletica;
     }
 
     @Override
